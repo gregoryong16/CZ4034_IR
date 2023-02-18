@@ -30,12 +30,19 @@ def get_reviews_from_shopee_api(shopid,itemid):
       results = data['data']['ratings']
       if (results==None):
         break
+      # oversea reviews shopid and itemid are different, needs to standardized
       # keys to select
       selected_keys = ["shopid","itemid","ctime","author_username","comment","rating_star","template_tags"]
       # create a new list of dictionaries with only selected keys
-      new_results = [{key: d[key] for key in selected_keys} for d in results]
-      reviews.extend(new_results)
-      offset+=len(results)
+      new_results = [{key: shopid if key == 'shopid' else itemid if key == 'itemid' else d[key] for key in selected_keys} for d in results]
+
+      # drop rows with no comments
+      filtered_new_results = [d for d in new_results if d["comment"] != None and d["comment"].strip() != ""  ]
+      if (len(new_results)==0):
+        print('--- reviews results length 0---',url)
+        break
+      reviews.extend(filtered_new_results)
+      offset+=len(new_results)
 
 
   except Exception as e:
@@ -81,7 +88,7 @@ def main(category):
 
     try:
       count=0
-      delay = random.uniform(1, 3)
+      delay = random.uniform(1, 4)
       time.sleep(delay)
       wait = WebDriverWait(driver, 10)
       wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
@@ -170,15 +177,6 @@ def main(category):
 
   except Exception as e:
     print(e)
-    with open(rf'shopee_reviews_dataset_{category}.txt', 'w', encoding="utf-8") as fp:
-      for row in rows:
-          fp.write(row+"\n")
-      print('Done')
-    
-    with open(rf'shopee_products_{category}.txt', 'w', encoding="utf-8") as fp:
-      for product in products:
-          fp.write(product+"\n")
-      print('Done')
 
 categories = ['Computers-Peripherals-cat.11013247',"Home-Living-cat.11000001"]
 
