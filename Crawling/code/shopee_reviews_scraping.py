@@ -142,8 +142,8 @@ def main(category):
           products.append(product)
 
           time.sleep(random.uniform(1, 2))
-          reviews = get_reviews_from_shopee_api(shopid,itemid)
-          rows.extend(reviews)
+          reviews_data = get_reviews_from_shopee_api(shopid,itemid)
+          rows.extend(reviews_data)
         else:
             print("No match found.",url)
 
