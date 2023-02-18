@@ -6,6 +6,7 @@ import time
 from bs4 import BeautifulSoup
 import pandas as pd
 import sys, os
+from urllib.parse import urljoin, urlparse
 
 
 # set up the driver (make sure to download the appropriate driver for your browser)
@@ -14,7 +15,8 @@ driver = webdriver.Chrome('C:/Program Files (x86)/chromedriver.exe')
 keyword = "laptop"
 # navigate to the Shopee product page
 # url =f'https://shopee.sg/search?keyword={keyword}'
-category = "Home-Living-cat.11000001"
+categories = ["Computers-Peripherals-cat.11013247","Home-Living-cat.11000001"]
+category = "Computers-Peripherals-cat.11013247"
 url = f"https://shopee.sg/{category}"
 driver.get(url)
 
@@ -53,6 +55,8 @@ try:
       link_element = item.find("a")
       if (link_element):
         link=f"https://shopee.sg{link_element['href']}"
+        # remove query parameters
+        link = urljoin(link, urlparse(link).path) 
         links.append(link)
     
     current_page_buttons =  driver.find_elements(By.XPATH,f"//button[@class='{primary_page_button_class}']/following-sibling::button[@class='{next_page_button_class}']")
