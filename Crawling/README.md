@@ -25,6 +25,7 @@ This dataset contains information on products sold on Shopee. The dataset includ
 * `original_price`: The original price of the product (before any discounts).
 * `current_price`: The current price of the product after any discounts if there is any.
 * `description`: A text description of the product.
+* `rating`: The overall rating of the product.
 * `image_url`: The URL of an image that shows the product.
 * `shopid`: A unique identifier for the store that sells the product.
 * `itemid`: A unique identifier for the product being sold.
