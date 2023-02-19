@@ -76,14 +76,14 @@ def main(category):
     product_title_class = "_44qnta"
     # maybe image url, price , items sold and so on
     original_price_class = "Y3DvsN"
-    discounted_price_class = "pqTWkA"
+    current_price_class = "pqTWkA"
     product_description_class = "f7AU53"
 
     product_primary_image_class ="VWiifV qO2bZw"
     product_secondary_image_class = "A4dsoy qO2bZw"
     rating_class = "product-rating-overview__rating-score"
 
-    ELEMENTS_TO_SCRAPE = [{"name":"original_price", "class":original_price_class},{"name":"discounted_price", "class":discounted_price_class},{"name":"description", "class":product_description_class},{"name":"rating", "class":rating_class}]
+    ELEMENTS_TO_SCRAPE = [{"name":"original_price", "class":original_price_class},{"name":"current_price", "class":current_price_class},{"name":"description", "class":product_description_class},{"name":"rating", "class":rating_class}]
 
 
     try:
