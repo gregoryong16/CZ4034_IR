@@ -88,7 +88,7 @@ def main(category):
 
     try:
       count=0
-      delay = random.uniform(1, 4)
+      delay = random.uniform(2, 4)
       time.sleep(delay)
       wait = WebDriverWait(driver, 10)
       wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
@@ -109,7 +109,7 @@ def main(category):
             product["name"]=product_name_element.text
 
         for element_to_scrape in ELEMENTS_TO_SCRAPE:
-          element = soup.find("div", {"class": element_to_scrape["class"]})
+          element = soup.find(["div","span"], {"class": element_to_scrape["class"]})
           if element:
             text=element.get_text(separator="\n")
             product[element_to_scrape["name"]]=text
@@ -165,6 +165,7 @@ def main(category):
   products_output_file = f'shopee_products_{category}.xlsx'
   reviews_output_file = f'shopee_reviews_dataset_{category}.xlsx'
   custom_order = ["shopid","itemid","ctime","author_username","comment","rating_star","template_tags"]
+  products_custom_order = ["url","shopid","itemid","name","original_price","current_price","description","rating","image_url"]
 
   try:
     # write the list of dictionaries to a excel file
@@ -173,6 +174,7 @@ def main(category):
     df.to_excel(reviews_output_file, index = False, header=True)  
 
     products_df = pd.DataFrame.from_dict(products) 
+    products_df = products_df.reindex(columns=products_custom_order)
     products_df.to_excel(products_output_file, index = False, header=True)  
 
   except Exception as e:
