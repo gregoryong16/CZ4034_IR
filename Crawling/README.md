@@ -23,11 +23,11 @@ This dataset contains information on products sold on Shopee. The dataset includ
 * `url`: The URL of the product page on the Shopee platform.
 * `name`: The name of the product.
 * `original_price`: The original price of the product (before any discounts).
-* `discounted_price`: The price of the product after any discounts have been applied.
+* `current_price`: The current price of the product after any discounts if there is any.
 * `description`: A text description of the product.
 * `image_url`: The URL of an image that shows the product.
 * `shopid`: A unique identifier for the store that sells the product.
 * `itemid`: A unique identifier for the product being sold.
 
 ## shopee_product_links.txt
-This dataset contains URLs of the products scraped.
+This dataset contains URLs of the products.
