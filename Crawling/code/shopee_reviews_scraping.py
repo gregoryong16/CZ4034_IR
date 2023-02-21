@@ -15,10 +15,12 @@ import json
 
 # options = webdriver.ChromeOptions()
 # options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
-def get_reviews_from_shopee_api(shopid,itemid):
+def get_reviews_from_shopee_api(shopid,itemid,product):
+  
   reviews = []
   try:
     offset=0
+    ratings_number_scraped = False
     while True:
       # filter the reviews with comments
       url = f'https://shopee.sg/api/v2/item/get_ratings?filter=1&flag=1&itemid={itemid}&limit=50&offset={offset}&shopid={shopid}&type=0'
@@ -28,6 +30,13 @@ def get_reviews_from_shopee_api(shopid,itemid):
       data = json.loads(response.text)
       # Extract the data you need from the dictionary
       results = data['data']['ratings']
+
+      # scrape number of ratings
+      if not ratings_number_scraped:
+        item_rating_summary = data['data']['item_rating_summary']
+        if item_rating_summary!=None:
+          product.update(item_rating_summary)
+          ratings_number_scraped = True
       if (results==None):
         break
       # oversea reviews shopid and itemid are different, needs to standardized
@@ -44,18 +53,43 @@ def get_reviews_from_shopee_api(shopid,itemid):
       reviews.extend(filtered_new_results)
       offset+=len(new_results)
 
+      break
+
 
   except Exception as e:
     print(e)
 
   return reviews
 
+def get_shop_info_from_shopee_api(shopid):
+  try:
+    url = f"https://shopee.sg/api/v4/product/get_shop_info?shopid={shopid}"
+    response = requests.get(url)
+    # Load the response JSON into a Python dictionary
+    data = json.loads(response.text)
+    # Extract the data you need from the dictionary
+    shop_info = data['data']
+    if (shop_info==None):
+      print("Results none:",url)
+      return
+    # oversea reviews shopid and itemid are different, needs to standardized
+    # keys to select
+    selected_keys = ["shopid","userid","place","shop_location","item_count","rating_star","response_rate","name","response_time","follower_count","rating_bad","rating_good","rating_normal"]
+    # create a new list of dictionaries with only selected keys
+    selected_shop_info = {key: shopid if key == 'shopid' else str(shop_info['userid']) if key == 'itemid' else shop_info[key] for key in selected_keys}
+    selected_shop_info["username"] =  shop_info["account"]["username"]
+    # drop rows with no comments
+    return selected_shop_info
+  except Exception as e:
+    print(e)
+
+
 def main(category):
   # set up the driver (make sure to download the appropriate driver for your browser)
   driver = webdriver.Chrome('C:/Program Files (x86)/chromedriver.exe')
   rows = []
   products = []
-
+  shops = []
   # reviews_pages_to_scrape = 2
   products_pages_to_scrape = 20
 
@@ -82,13 +116,15 @@ def main(category):
     product_primary_image_class ="VWiifV qO2bZw"
     product_secondary_image_class = "A4dsoy qO2bZw"
     rating_class = "product-rating-overview__rating-score"
+    items_sold_class = "P3CdcB"
+    category_class = "akCPfg KvmvO1"
 
-    ELEMENTS_TO_SCRAPE = [{"name":"original_price", "class":original_price_class},{"name":"current_price", "class":current_price_class},{"name":"description", "class":product_description_class},{"name":"rating", "class":rating_class}]
+    ELEMENTS_TO_SCRAPE = [{"name":"original_price", "class":original_price_class},{"name":"current_price", "class":current_price_class},{"name":"description", "class":product_description_class},{"name":"rating", "class":rating_class},{"name":"items_sold","class":items_sold_class}]
 
 
     try:
       count=0
-      delay = random.uniform(1, 4)
+      delay = random.uniform(3, 5)
       time.sleep(delay)
       wait = WebDriverWait(driver, 10)
       wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
@@ -109,10 +145,18 @@ def main(category):
             product["name"]=product_name_element.text
 
         for element_to_scrape in ELEMENTS_TO_SCRAPE:
-          element = soup.find("div", {"class": element_to_scrape["class"]})
+          element = soup.find(["div","span"], {"class": element_to_scrape["class"]})
           if element:
             text=element.get_text(separator="\n")
             product[element_to_scrape["name"]]=text
+
+        category_elements = soup.find_all("a", {"class": category_class})
+        if len(category_elements)>0:
+          categories_list = []
+          for category_element in category_elements:
+            categories_list.append(category_element.text)
+          product["categories"] = ">".join(categories_list)
+          product["category"] = category_elements[-1].text
 
         primary_image_element =  soup.find("div", {"class": product_primary_image_class})
         if primary_image_element and primary_image_element.has_attr("style"):
@@ -139,10 +183,21 @@ def main(category):
 
           product["shopid"] = shopid
           product["itemid"] = itemid
-          products.append(product)
 
-          time.sleep(random.uniform(1, 2))
-          reviews_data = get_reviews_from_shopee_api(shopid,itemid)
+
+          time.sleep(random.uniform(2, 4))
+          new_shop = get_shop_info_from_shopee_api(shopid)
+          if (new_shop):
+            new_shop_exists = False
+            for shop in shops:
+              if shop["shopid"]== new_shop["shopid"]:
+                new_shop_exists = True
+            if not new_shop_exists:
+              shops.append(new_shop)
+
+          time.sleep(random.uniform(3, 5))
+          reviews_data = get_reviews_from_shopee_api(shopid,itemid,product)
+          products.append(product)
           rows.extend(reviews_data)
         else:
             print("No match found.",url)
@@ -163,17 +218,30 @@ def main(category):
 
   # define the output file name and field names
   products_output_file = f'shopee_products_{category}.xlsx'
-  reviews_output_file = f'shopee_reviews_dataset_{category}.xlsx'
-  custom_order = ["shopid","itemid","ctime","author_username","comment","rating_star","template_tags"]
+  reviews_output_file = f'shopee_reviews_{category}.xlsx'
+  shops_output_file = f'shopee_shops_{category}.xlsx'
+  reviews_custom_order = ["shopid","itemid","ctime","author_username","comment","rating_star","template_tags"]
+  products_custom_order = ["url","shopid","itemid","name","original_price","current_price","description","rating","image_url","items_sold"]
 
   try:
     # write the list of dictionaries to a excel file
-    df = pd.DataFrame.from_dict(rows) 
-    df = df.reindex(columns=custom_order)
-    df.to_excel(reviews_output_file, index = False, header=True)  
+    # df = pd.DataFrame.from_dict(rows) 
+    # df = df.reindex(columns=reviews_custom_order)
+    # df.to_excel(reviews_output_file, index = False, header=True)  
 
     products_df = pd.DataFrame.from_dict(products) 
+    # Define a custom sorting key function
+    def custom_sort_key(item):
+        try:
+            return products_custom_order.index(item)
+        except ValueError:
+            return len(products_custom_order)
+    modified_products_custom_order = sorted(list(products_df.columns), key=custom_sort_key)
+    products_df = products_df.reindex(columns=modified_products_custom_order)
     products_df.to_excel(products_output_file, index = False, header=True)  
+
+    shops_df = pd.DataFrame.from_dict(shops) 
+    shops_df.to_excel(shops_output_file, index = False, header=True)  
 
   except Exception as e:
     print(e)
