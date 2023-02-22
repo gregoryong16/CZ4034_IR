@@ -53,9 +53,6 @@ def get_reviews_from_shopee_api(shopid,itemid,product):
       reviews.extend(filtered_new_results)
       offset+=len(new_results)
 
-      break
-
-
   except Exception as e:
     print(e)
 
@@ -225,9 +222,9 @@ def main(category):
 
   try:
     # write the list of dictionaries to a excel file
-    # df = pd.DataFrame.from_dict(rows) 
-    # df = df.reindex(columns=reviews_custom_order)
-    # df.to_excel(reviews_output_file, index = False, header=True)  
+    df = pd.DataFrame.from_dict(rows) 
+    df = df.reindex(columns=reviews_custom_order)
+    df.to_excel(reviews_output_file, index = False, header=True)  
 
     products_df = pd.DataFrame.from_dict(products) 
     # Define a custom sorting key function
