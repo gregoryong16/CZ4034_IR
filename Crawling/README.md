@@ -29,6 +29,27 @@ This dataset contains information on products sold on Shopee. The dataset includ
 * `image_url`: The URL of an image that shows the product.
 * `shopid`: A unique identifier for the store that sells the product.
 * `itemid`: A unique identifier for the product being sold.
+* `items_sold`: The number of units of the product that have been sold.
+* `category`: The category to which the product belongs.
+* `rating_total`: The total number of customer reviews for the product..
+
+## shopee_shops.xlsx
+This dataset contains information on shops on Shopee. The dataset includes the following columns:
+
+* `shopid`: A unique identifier for the shop.
+* `userid`: The user ID of the shop owner.
+* `place`: The address of the shop.
+* `shop_location`: The location of the shop.
+* `item_count`: The total number of items listed for sale in the shop.
+* `rating_star`: The average star rating for the shop, based on customer reviews.
+* `response_rate`: The percentage of customer inquiries that the shop owner responds to.
+* `name`: The name of the shop.
+* `response_time`: The average time (in seconds maybe) it takes for the shop owner to respond to customer inquiries.
+* `follower_count`: The total number of customers who have added the shop to their list of favorites.
+* `rating_bad`: The number of customer reviews with a "bad" rating (1 or 2 stars).
+* `rating_good`: The number of customer reviews with a "good" rating (4 or 5 stars).
+* `rating_normal`: The number of customer reviews with a "normal" rating (3 stars).
+* `username`: The username of the shop owner.
 
 ## shopee_product_links.txt
 This dataset contains URLs of the products.
