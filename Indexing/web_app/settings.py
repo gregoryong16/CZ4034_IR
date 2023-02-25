@@ -38,9 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "haystack",
     "indexing_project",
-    'haystack',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [

@@ -1,18 +1,30 @@
-# from indexing_project.models import Products
-import openpyxl
-from .models import Products
+# from .models import Products
+from pandas import read_excel
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import sys
+if BASE_DIR not in sys.path:
+    sys.path.append(BASE_DIR)
+os.environ['DJANGO_SETTINGS_MODULE'] =  "web_app.settings"
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "web_app.settings")
+import django
+django.setup()
+from indexing_project.models import Products
 
-reader = openpyxl.load_workbook("../static/shopee_products.xlsx")
-worksheet = reader.active
-for i in range(0, worksheet.max_row):
-    for col in worksheet.iter_cols(1, worksheet.max_column):
-        print(col[i].value, end="\t\t")  
-    print('')
+df = read_excel("shopee_review_product_shop_combined.xlsx",sheet_name = "Sheet1")
+print(df.head()) # print the first 5 rows
 
-for dbframe in worksheet.itertuples():
-    obj = Products.objects.create(name=dbframe.name, price = "$2.00", description=dbframe.description,
-                                            ratings=dbframe.rating, image_url=dbframe.image_url, shop_id=dbframe.shopid, item_id=dbframe.itemid
-                                        )           
-    obj.save()
 
-print(Products.objects.filter(name__startswith='SG'))
+# for dbframe in df.itertuples():
+#     print(dbframe["product.name"])
+#     obj = Products.objects.create(Empcode=dbframe.Empcode,firstName=dbframe.firstName, middleName=dbframe.middleName,
+#                                     lastName=dbframe.lastName, email=dbframe.email, phoneNo=dbframe.phoneNo, address=dbframe.address,
+#                                     gender=dbframe.gender, DOB=dbframe.DOB,salary=dbframe.Salary )           
+    # obj.save()
+# for row in range(1, worksheet.max_row+1):
+#     for dbframe in worksheet[row].itertuples():
+#         print(dbframe.product.name)
+#         # obj = Products.objects.create(name=worksheet[i].value.product.name, description=worksheet[i].value.product.description)          
+#         # obj.save()
+
+# print(Products.objects.filter(name__startswith='SG'))
