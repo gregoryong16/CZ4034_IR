@@ -1,0 +1,5 @@
+<h1>Search Results</h1>
+
+{% for result in page.object_list %} {{ result.object.name }}
+{{result.object.rating_star}} <br />
+{% empty %} No results found. {% endfor %}

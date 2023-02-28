@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_extensions",
     "haystack",
     "indexing_project",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
@@ -104,12 +106,17 @@ AUTH_PASSWORD_VALIDATORS = [
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr'
-        # ...or for multicore...
-        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+        'ENGINE': 'haystack.backends.elasticsearch5_backend.Elasticsearch5SearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
     },
 }
+
+# auto index to elastic search when new data is created or when data is saved in the database
+HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
+
+# Specify the max number of results that can be returned in a page using haystack
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10000
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
