@@ -1,5 +1,21 @@
-<h1>Search Results</h1>
+{% load static %}
+<link rel="stylesheet" href="{% static 'indexing_project/search.css' %}" />
+<h1>Search Results for {{query}}</h1>
 
 {% for result in page.object_list %} {{ result.object.name }}
 {{result.object.rating_star}} <br />
 {% empty %} No results found. {% endfor %}
+
+<!-- facet not working dk why -->
+<!-- <div>
+    <dl>
+        {% if page.page_object %}
+            <dt>Rating Star</dt>
+            {% for rating_star in facets.fields.rating_star|slice:":5" %}
+                {{ rating_star }}
+            {% endfor %}
+        {% else %}
+            <p>No rating_star facets.</p>
+        {% endif %}
+    </dl>
+</div> -->

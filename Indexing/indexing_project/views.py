@@ -17,3 +17,12 @@ class SearchResultsView(ListView):
             Q(name__icontains=query) 
         )
         return object_list
+
+from haystack.generic_views import FacetedSearchView as BaseFacetedSearchView
+from haystack.forms import FacetedSearchForm
+# Now create your own that subclasses the base view
+class FacetedSearchView(BaseFacetedSearchView):
+    form_class = FacetedSearchForm
+    facet_fields = ['rating_star']
+    template_name = 'search.html'
+    context_object_name = 'page_object'
