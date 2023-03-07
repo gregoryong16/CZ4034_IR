@@ -23,8 +23,10 @@
 
 
 <div>
-    {% for res in result %}
-    {{ res.name }} {{res.rating_star}}</br>
+    {% for res in result|dictsort:'name'  %}
+    <!-- for distinct results only -->
+    {% ifchanged %}{{res.name}} {{res.rating_star}}</br>{% endifchanged %}  
+    <!-- {{ res.name }} {{res.rating_star}}</br> -->
     {% empty %}
     There are no results.
     {% endfor %}

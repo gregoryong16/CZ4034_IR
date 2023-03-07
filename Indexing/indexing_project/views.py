@@ -62,15 +62,15 @@ def home(request):
 
 def search(request):
     q = request.GET.get('q')
+    rating_star= request.GET.get('rating_star')
     res = Q("multi_match", query=q, fields=["name"])
     if q:
-        s = ProductsDocument.search().extra(size=10).query(res).filter('match',rating_star = "4")
+        s = ProductsDocument.search().extra(size=100).query(res).filter('match',rating_star = rating_star)
 
     else:
         result = ''
 
-    print(s.to_queryset())
-    return render(request, 'search.html', {'result': s.to_queryset()})
+    return render(request, 'search.html', {'result': s.to_queryset(), 'query':q})
 
 # class PaginatedElasticSearchAPIView(APIView, LimitOffsetPagination):
 #     serializer_class = None
