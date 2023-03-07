@@ -2,4 +2,5 @@
 Indexing/shopee_review_product_shop_combined.xlsx
 Indexing/db.sqlite3 
 Indexing/elasticsearch-5.6.15
+Indexing/elasticsearch-7.14.0
 *.pyc

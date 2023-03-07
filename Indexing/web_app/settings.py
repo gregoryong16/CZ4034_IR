@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
-    "haystack",
+    # "haystack",
+    'django_elasticsearch_dsl',
     "indexing_project",
     "rest_framework"
 ]
@@ -104,19 +105,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.elasticsearch5_backend.Elasticsearch5SearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'haystack',
-    },
-}
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE': 'haystack.backends.elasticsearch5_backend.Elasticsearch5SearchEngine',
+#         'URL': 'http://127.0.0.1:9200/',
+#         'INDEX_NAME': 'haystack',
+#     },
+# }
 
-# auto index to elastic search when new data is created or when data is saved in the database
-HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
+# # auto index to elastic search when new data is created or when data is saved in the database
+# HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 
-# Specify the max number of results that can be returned in a page using haystack
-HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10000
+# # Specify the max number of results that can be returned in a page using haystack
+# HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10000
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -146,3 +147,14 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 25
+}
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
