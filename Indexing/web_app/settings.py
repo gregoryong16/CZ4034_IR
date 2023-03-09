@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # "haystack",
     'django_elasticsearch_dsl',
     "indexing_project",
-    "rest_framework"
+    "rest_framework",
 ]
 
 MIDDLEWARE = [

@@ -12,15 +12,13 @@
 # ]
 
 from django.urls import path, include
-from rest_framework import routers
-
 from indexing_project.views import home
-# ProductsViewSet, SearchProducts
 from indexing_project import views
-# router = routers.DefaultRouter()
-# router.register(r'product', ProductsViewSet)
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('', home, name='home'),
     path('search/', views.search, name='search'),
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico')))
 ]

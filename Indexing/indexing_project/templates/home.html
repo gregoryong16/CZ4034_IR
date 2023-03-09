@@ -1,22 +1,17 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'indexing_project/home.css' %}" />
-<h1>Shop for anything you want!!</h1>
-<form class="search" action="search/" method="get">
-  <input name="q" placeholder="Search Product" type="text" />
-  <input name="rating_star" placeholder="rating_star" type="text" />
-  <input type="submit" />
-</form>
-<footer>CZ4034 Information Retrieval Project</footer>
 
-<!-- <form method="get" action="/search" class="form-inline my-2 my-lg-0">
-  <input
-    class="form-control mr-sm-2"
-    type="search"
-    placeholder="Search"
-    aria-label="Search"
-    name="q"
-  />
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-    Search
-  </button>
-</form> -->
+<body>
+  <h1>Shop for any product!</h1>
+  <div class="box">
+    <form name="search" class="search" action="search/" method="get">
+      <input
+        type="text"
+        class="input"
+        name="q"
+        placeholder="Enter Product name"
+      />
+    </form>
+    <footer>CZ4034 Information Retrieval Project</footer>
+  </div>
+</body>

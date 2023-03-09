@@ -2,32 +2,36 @@
 <link rel="stylesheet" href="{% static 'indexing_project/search.css' %}" />
 <h1>Search Results for {{query}}</h1>
 
-<!-- {% for result in page.object_list %} {{ result.object.name }}
-{{result.object.rating_star}} <br />
-{% empty %} No results found. {% endfor %} -->
+<div class="main">
+  <form action="" method="post" class="filters">
+    {% csrf_token %} 
+    {# This will display the radio button HTML for you #}
+    {{form.as_p }} 
+    {# You'll need a submit button or similar here to actually send the form #}
+    <input type="submit" value="Submit" />
+  </form>
 
-<!-- facet not working dk why -->
-<!-- <div>
-    <dl>
-        {% if page.object_list %}
-            <dt>Rating Star</dt>
-            {# Provide only the top 5 authors #}
-            {% for result in page.object_list|slice:":10" %}
-                {{ result.object.name }} {{result.object.rating_star}} <br />
-            {% endfor %}
-        {% else %}
-            <p>No results.</p>
-        {% endif %}
-    </dl>
-</div> -->
-
-
-<div>
-    {% for res in result|dictsort:'name'  %}
+  <div class="result-box">
+    {% for res in result|dictsort:'name' %}
     <!-- for distinct results only -->
-    {% ifchanged %}{{res.name}} {{res.rating_star}}</br>{% endifchanged %}  
+    {% ifchanged %}
+    <div class="container">
+      <div class="overlay">
+        <div class="items head">
+          <p>{{res.name}}</p>
+          <hr />
+        </div>
+        <div class="items price">
+          <p class="old">$699</p>
+          <p class="new">$345</p>
+        </div>
+        <div class="items cart">
+          <span>ADD TO CART</span>
+        </div>
+      </div>
+    </div>
+    {% endifchanged %}
     <!-- {{ res.name }} {{res.rating_star}}</br> -->
-    {% empty %}
-    There are no results.
-    {% endfor %}
+    {% empty %} There are no results. {% endfor %}
+  </div>
 </div>
