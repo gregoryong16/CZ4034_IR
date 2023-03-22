@@ -52,5 +52,8 @@ This dataset contains information on shops on Shopee. The dataset includes the f
 * `rating_normal`: The number of customer reviews with a "normal" rating (3 stars).
 * `username`: The username of the shop owner.
 
+## shopee_review_product_shop_combined.xlsx
+This joined version of the datasets.
+
 ## shopee_product_links.txt
 This dataset contains URLs of the products.
