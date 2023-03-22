@@ -22,8 +22,9 @@ This dataset contains information on products sold on Shopee. The dataset includ
 
 * `url`: The URL of the product page on the Shopee platform.
 * `name`: The name of the product.
-* `original_price`: The original price of the product (before any discounts).
-* `current_price`: The current price of the product after any discounts if there is any.
+* `price_min`: The minimum price of the product.
+* `price_max`: The maximum price of the product.
+* `price_middle`: The middle price of the product.
 * `description`: A text description of the product.
 * `rating`: The overall rating of the product.
 * `image_url`: The URL of an image that shows the product.
@@ -50,6 +51,9 @@ This dataset contains information on shops on Shopee. The dataset includes the f
 * `rating_good`: The number of customer reviews with a "good" rating (4 or 5 stars).
 * `rating_normal`: The number of customer reviews with a "normal" rating (3 stars).
 * `username`: The username of the shop owner.
+
+## shopee_review_product_shop_combined.xlsx
+This joined version of the datasets.
 
 ## shopee_product_links.txt
 This dataset contains URLs of the products.
