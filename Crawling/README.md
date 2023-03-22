@@ -2,6 +2,8 @@
 The data folder contains the following files:
 * `shopee_reviews.xlsx`
 * `shopee_products.xlsx`
+* `shopee_shops.xlsx`
+* `shopee_review_product_shop_combined.xlsx`
 * `shopee_product_links.txt`
 
 ## shopee_reviews.xlsx
