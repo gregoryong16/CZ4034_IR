@@ -22,8 +22,9 @@ This dataset contains information on products sold on Shopee. The dataset includ
 
 * `url`: The URL of the product page on the Shopee platform.
 * `name`: The name of the product.
-* `original_price`: The original price of the product (before any discounts).
-* `current_price`: The current price of the product after any discounts if there is any.
+* `price_min`: The minimum price of the product.
+* `price_max`: The maximum price of the product.
+* `price_middle`: The middle price of the product.
 * `description`: A text description of the product.
 * `rating`: The overall rating of the product.
 * `image_url`: The URL of an image that shows the product.
