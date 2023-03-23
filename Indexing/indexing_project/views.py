@@ -65,7 +65,7 @@ def home(request):
 def search(request):
     q = request.GET.get('q')
     # rating_star= request.GET.get('rating_star')
-    res = Q("multi_match", query=q, fields=["name"])
+    res = Q("multi_match", query=q, fields=["product_name"])
     if q:
         s = ProductsDocument.search().extra(size=100).query(res)
 
