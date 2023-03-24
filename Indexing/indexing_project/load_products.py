@@ -12,16 +12,15 @@ django.setup()
 from indexing_project.models import Products
 
 # Reading excel files
-df = read_excel("../shopee_review_product_shop_combined.xlsx",sheet_name = "Sheet1")
-print(df.head()) # print the first 5 rows
+# df = read_excel("../shopee_product_shop_combined.xlsx",sheet_name = "Sheet1")
+# print(df.head()) # print the first 5 rows
 
-# Creating Objects using excel data
-for dbframe in df.itertuples():
-    print(dbframe[0])
-    obj = Products.objects.create(shop_id = dbframe[1], item_id = dbframe[2],product_url=dbframe[8], product_name=dbframe[9], 
-                                  product_price=dbframe[12], description=dbframe[13], rating=dbframe[14], 
-                                  image_url=dbframe[15], shop_location=dbframe[21],
-                                  shop_ratings=dbframe[23],shop_name=dbframe[25])          
-    obj.save()
+# # Creating Objects using excel data
+# for dbframe in df.itertuples():
+#     print(dbframe[0])
+#     obj = Products.objects.create(shop_id = dbframe[2], item_id = dbframe[3],product_url=dbframe[1], product_name=dbframe[4], 
+#                                   product_price=dbframe[7], description=dbframe[8], rating=dbframe[9], 
+#                                   image_url=dbframe[10], shop_location=dbframe[14], shop_name=dbframe[15])          
+#     obj.save()
 
-print(Products.objects.filter(name__startswith='SG'))
+print(Products.objects.filter(product_name__startswith='SG'))

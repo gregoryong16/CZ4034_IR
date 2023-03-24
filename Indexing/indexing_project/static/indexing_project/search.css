@@ -20,13 +20,15 @@ body {
 }
 
 .result-box {
-  margin-left: 2%;
+  margin-left: 5%;
   display: flex;
   flex-wrap: wrap;
 }
 
 .filters {
-  margin: 2%;
+  margin-left: 2%;
+  margin-top: 2%;
+  min-width: 100px;
 }
 
 body {

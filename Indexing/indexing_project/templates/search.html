@@ -12,7 +12,7 @@
   </form>
 
   <div class="result-box">
-    {% for res in result|dictsort:'name' %}
+    {% for res in result|dictsort:'product_name' %}
     <!-- for distinct results only -->
     {% ifchanged %}
     <div class="container">

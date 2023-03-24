@@ -75,10 +75,10 @@ def search(request):
         if form.is_valid():
             # The "display_type" key is now guaranteed to exist and
             # guaranteed to be "displaybox" or "locationbox"
-            num_star = request.POST["num_star"]
+            rating = request.POST["rating"]
             location = request.POST["location"]
-            s = s.filter('match', rating_star = num_star)
-            print(num_star)
+            # s = s.filter(rating__range=(5))
+            print(rating)
             print(location)
 
     return render(request, 'search.html', {'result': s.to_queryset(), 'query':q , 'form': form})

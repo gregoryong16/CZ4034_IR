@@ -6,19 +6,18 @@ class Products(models.Model):
     item_id = models.CharField(max_length = 20, null=True)
     product_url = models.URLField(max_length = 200,null=True)
     product_name = models.CharField(max_length=400,null=True)
-    product_price=models.DecimalField(max_digits=6, decimal_places=2,null=True)
+    product_price=models.DecimalField(max_digits=10, decimal_places=2,null=True)
     description = models.TextField(blank=True, null=True)
-    rating = models.DecimalField(max_digits=3, decimal_places=1, null=True)
+    rating = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     image_url = models.URLField(max_length = 200, null= True)
     shop_location = models.CharField(max_length=100,null=True)
-    shop_ratings = models.DecimalField(max_digits=10, decimal_places=6,null=True)
     shop_name = models.CharField(max_length=100, null= True)
 
     # class Meta:
     #     app_label = 'indexing_project'
 
     def __str__(self):
-        return self.name
+        return self.product_name
                  
     objects = models.Manager()
 

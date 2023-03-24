@@ -40,7 +40,6 @@ class ProductsDocument(Document):
 			"rating",
 			"image_url",
 			"shop_location",
-			"shop_ratings",
 			"shop_name"
         ]
 
