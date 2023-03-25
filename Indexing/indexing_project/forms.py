@@ -1,15 +1,14 @@
 from django import forms
 
 DISPLAY_CHOICES = (
-    ("5", "5"),
-    ("4", "4 to 4.9"),
-    ("3", "3 to 3.9"),
-    ("2", "Below 3"),
+    ("4.5", ">=4.5"),
+    ("4", ">=4"),
+    ("3", "Below 4")
 )
 
 LOCATION_CHOICES =(
     ("local", "Local"),
-    ("Overseas", "Overseas"),
+    ("overseas", "Overseas"),
 )
 class MyForm(forms.Form):
     rating = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class': "custom-radio-list"}), choices=DISPLAY_CHOICES)

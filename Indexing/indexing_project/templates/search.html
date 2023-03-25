@@ -1,9 +1,10 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'indexing_project/search.css' %}" />
-<h1>Search Results for {{query}}</h1>
+<h1 class="header">Search Results for "{{query}}"</h1>
 
 <div class="main">
   <form action="" method="post" class="filters">
+    <h1 class="refine_search">Refine search here</h1>
     {% csrf_token %} 
     {# This will display the radio button HTML for you #}
     {{form.as_p }} 
@@ -15,18 +16,19 @@
     {% for res in result|dictsort:'product_name' %}
     <!-- for distinct results only -->
     {% ifchanged %}
-    <div class="container">
+    <div class="container" onclick="window.location.href='{{res.product_url}}'" style="background-image: url('{{res.image_url}}')">
       <div class="overlay">
         <div class="items head">
+          <p style="font-family: 'Courier New', Courier, monospace; font-size: medium;">{{res.shop_name}}</p>
           <p>{{res.product_name}}</p>
           <hr />
         </div>
         <div class="items price">
-          <p class="old">$699</p>
-          <p class="new">$345</p>
+          <p class="new">${{res.product_price}} </p>
         </div>
-        <div class="items cart">
-          <span>ADD TO CART</span>
+        <div class="details">
+          <p>{{res.shop_location}}</p>
+          <p class="last_item">Rating: {{res.rating}}</p>
         </div>
       </div>
     </div>

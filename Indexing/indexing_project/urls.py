@@ -20,5 +20,6 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('', home, name='home'),
     path('search/', views.search, name='search'),
-    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico')))
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'))),
+    path('pie-chart/', views.pie_chart, name='pie-chart'),
 ]

@@ -9,6 +9,18 @@ body {
   height: 100%;
 }
 
+.header {
+  font-size: xx-large;
+  margin-left: 2%;
+  margin-bottom: 3%;
+  margin-top: 2%;
+}
+
+.refine_search {
+  font-size: large;
+  color: black;
+}
+
 .custom-radio-list {
   list-style-type: none;
   padding: 0;
@@ -17,6 +29,7 @@ body {
 
 .main {
   display: flex;
+  font-family: sans-serif;
 }
 
 .result-box {
@@ -42,10 +55,13 @@ body {
   right: 0;
   left: 0;
   bottom: 0;
-  margin: auto;
-  background: url("https://i.pinimg.com/564x/6f/5a/b1/6f5ab1b470beeeeaf285bb451c63ac8f.jpg");
-  background-color: black;
-  background-size: cover;
+  margin: 10px;
+  background-image: var(--url);
+  background-color: #fef5df;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  max-width: 100%;
   cursor: pointer;
   -webkit-box-shadow: 0 0 5px #000;
   box-shadow: 0 0 5px #000;
@@ -63,6 +79,7 @@ body {
   opacity: 0;
   transition: all 0.5s;
   font-family: "Playfair Display", serif;
+  position: relative;
 }
 
 .items {
@@ -72,10 +89,11 @@ body {
 
 .head {
   font-size: 15px;
-  line-height: 40px;
+  line-height: 30px;
   transform: translateY(40px);
   transition: all 0.7s;
 }
+
 .head hr {
   display: block;
   width: 0;
@@ -94,25 +112,37 @@ body {
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.7s;
-}
-.price .old {
-  text-decoration: line-through;
-  color: #b3b3b3;
+  font-size: large;
 }
 
-.cart {
-  font-size: 12px;
+.details {
+  font-size: 15px;
+  line-height: 10px;
+  font-weight: bold;
   opacity: 0;
-  letter-spacing: 1px;
-  font-family: "Lato", sans-serif;
   transform: translateY(40px);
   transition: all 0.7s;
+  font-family: sans-serif;
+  position: absolute;
+  bottom: 10px;
+  left: auto;
+  display: flex;
+  flex-direction: row;
+  font-weight: lighter;
+  width: 100%;
+  margin-top: 5%;
 }
-.cart i {
-  font-size: 20px;
+
+.details > p {
+  margin-left: 5%;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  min-width: 170px;
 }
-.cart span {
-  margin-left: 10px;
+
+.last_item {
+  align-self: flex-end;
+  justify-content: flex-end;
 }
 
 .container:hover .overlay {
@@ -122,7 +152,6 @@ body {
   transform: translateY(0px);
 }
 .container:hover .overlay hr {
-  width: 75px;
   transition-delay: 0.4s;
 }
 .container:hover .overlay .price {
@@ -130,8 +159,8 @@ body {
   transition-delay: 0.3s;
   opacity: 1;
 }
-.container:hover .overlay .cart {
+.container:hover .overlay .details {
   transform: translateY(0px);
-  transition-delay: 0.6s;
+  transition-delay: 0.5s;
   opacity: 1;
 }
