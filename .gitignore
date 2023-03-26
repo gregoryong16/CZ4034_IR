@@ -1,5 +1,4 @@
 .venv
-Indexing/shopee_review_product_shop_combined.xlsx
 Indexing/db.sqlite3
 *.pyc
-Indexing/shopee_product_shop_combined.xlsx
+Indexing/elasticsearch-7.14.0
