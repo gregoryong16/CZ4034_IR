@@ -14,6 +14,7 @@ from django.template import RequestContext
 from elasticsearch_dsl.query import MoreLikeThis
 from elasticsearch_dsl import Search
 from math import ceil
+import time
 
 def home(request):
     return render(request, 'home.html')
@@ -21,20 +22,19 @@ def home(request):
 
 def search(request):
     q = request.GET.get('q')
-    # rating_star= request.GET.get('rating_star')
+    # st = time.time()
     res = Q("multi_match", query=q, fields=["product_name"])
     if q:
         s = ProductsDocument.search().extra(size=100).query(res)
-    
-    f = Search()
-    f = f.query(MoreLikeThis(like=q, fields=["product_name"]))
-    f = f.source(exclude=["text"])
-    response = f.execute()
-
-    for hit in response:
+    response = s.execute()
+    # print("----------Results----------------")
+    for hit in s:
         print(hit.product_name)
-        print()
+    # et=time.time()
+    # elapsed_time = (et - st) * 1000
 
+    # print("----------------------")
+    # print("Time taken:", elapsed_time ,"ms")
     form = MyForm(request.POST or None)
     if request.method == "POST":
         # Have Django validate the form for you
