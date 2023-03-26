@@ -21,3 +21,4 @@ class Products(models.Model):
                  
     objects = models.Manager()
 
+ 

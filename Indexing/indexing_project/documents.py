@@ -30,16 +30,9 @@ class ProductsDocument(Document):
 
     class Django:
         model = Products
-        fields = [
-            "shop_id",
-			"item_id",
-			"product_url", 
+        fields = [ 
 			"product_name",
-			"product_price",
-			"description",
 			"rating",
-			"image_url",
 			"shop_location",
-			"shop_name"
         ]
 
