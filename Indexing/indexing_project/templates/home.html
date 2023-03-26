@@ -1,0 +1,22 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'indexing_project/home.css' %}" />
+
+<body>
+  <div class="title">
+    <span>S</span>
+    <span>H</span>
+    <span>O</span>
+    <span>P</span>
+    <span>!</span>
+  </div>
+  <div class="box">
+    <form name="search" class="search" action="search/" method="get">
+      <input
+        type="text"
+        class="input"
+        name="q"
+        placeholder="Enter Product name"
+      />
+    </form>
+  </div>
+</body>
