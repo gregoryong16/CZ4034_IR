@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from indexing_project.documents import ProductsDocument
 from django.shortcuts import render
 from .forms import MyForm
+from .shopee_crawling_for_ui import ShopeeCrawler
 from django.template import RequestContext
 from elasticsearch_dsl.query import MoreLikeThis
 from elasticsearch_dsl import Search
@@ -25,6 +26,10 @@ def crawl(request):
     if q is None:
         return render(request, 'crawl.html', {'result': None, 'query': None})
     else:
+        crawler = ShopeeCrawler()
+        products,shops,reviews = crawler.get_shopee_data(q)
+        print("Hi")
+        print(products)
         return render(request, 'crawl.html', {'result': None, 'query': None})
 
 def search(request):
