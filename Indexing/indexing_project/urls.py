@@ -12,13 +12,13 @@
 # ]
 
 from django.urls import path, include
-from indexing_project.views import home
 from indexing_project import views
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('', views.home, name='home'),
+    path('crawl/', views.crawl, name='crawl'),
     path('search/', views.search, name='search'),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'))),
     path('pie-chart/', views.pie_chart, name='pie-chart'),

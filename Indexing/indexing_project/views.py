@@ -19,6 +19,13 @@ import time
 def home(request):
     return render(request, 'home.html')
 
+def crawl(request):
+    q = request.GET.get('q')
+    print(q)
+    if q is None:
+        return render(request, 'crawl.html', {'result': None, 'query': None})
+    else:
+        return render(request, 'crawl.html', {'result': None, 'query': None})
 
 def search(request):
     q = request.GET.get('q')
