@@ -24,31 +24,32 @@
         placeholder="Enter Product Link"
       />
     </form>
-    {% if q %}
-      <div class="result-box">
-        {% for res in result|dictsort:'product_name' %}
-        <!-- for distinct results only -->
-        {% ifchanged %}
-        <div class="container" onclick="window.location.href='{{res.product_url}}'" style="background-image: url('{{res.image_url}}')">
-          <div class="overlay">
-            <div class="items head">
-              <p style="font-family: 'Courier New', Courier, monospace; font-size: medium;">{{res.shop_name}}</p>
-              <p>{{res.product_name}}</p>
-              <hr />
-            </div>
-            <div class="items price">
-              <p class="new">${{res.product_price}} </p>
-            </div>
-            <div class="details">
-              <p>{{res.shop_location}}</p>
-              <p class="last_item">Rating: {{res.rating}}</p>
-            </div>
+  </div>
+  {% if display %}
+    <h1 class="header">Crawl Results</h1>
+    <div class="result-box">
+      {% for res in result %}
+      <!-- for distinct results only -->
+      {% ifchanged %}
+      <div class="container" onclick="window.location.href='{{res.url}}'" style="background-image: url('{{res.image_url}}')">
+        <div class="overlay">
+          <div class="items head">
+            <p style="font-family: 'Courier New', Courier, monospace; font-size: medium;">{{res.shop_name}}</p>
+            <p>{{res.name}}</p>
+            <hr />
+          </div>
+          <div class="items price">
+            <p class="new">${{res.price_middle}} </p>
+          </div>
+          <div class="details">
+            <p>{{res.shop_location}}</p>
+            <p class="last_item">Rating: {{res.rating}}</p>
           </div>
         </div>
-        {% endifchanged %}
-        <!-- {{ res.name }} {{res.rating_star}}</br> -->
-        {% empty %} There are no results. {% endfor %}
       </div>
-    {% endif %}
-  </div>
+      {% endifchanged %}
+      <!-- {{ res.name }} {{res.rating_star}}</br> -->
+      {% empty %} There are no results. {% endfor %}
+    </div>
+  {% endif %}
 </body>

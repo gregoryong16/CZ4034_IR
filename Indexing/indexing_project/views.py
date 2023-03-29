@@ -22,15 +22,25 @@ def home(request):
 
 def crawl(request):
     q = request.GET.get('q')
-    print(q)
     if q is None:
-        return render(request, 'crawl.html', {'result': None, 'query': None})
+        return render(request, 'crawl.html', {'result': None, 'display': False})
     else:
         crawler = ShopeeCrawler()
-        products,shops,reviews = crawler.get_shopee_data(q)
-        print("Hi")
-        print(products)
-        return render(request, 'crawl.html', {'result': None, 'query': None})
+        links = crawler.get_product_urls_from_category_page(q)
+        result = []
+        #for i in range(len(links)):
+        for i in range(10):
+            link = links[i]
+            product,shop,reviews = crawler.get_shopee_data(link)
+            result.append(product)
+            try:
+                obj = Products.objects.create(shop_id = product['shopid'], item_id = product['itemid'],product_url=product['url'], product_name=product['name'], 
+                                  product_price=product['price_middle'], description=product['description'], rating=product['rating'], 
+                                  image_url=product['image_url'], shop_location=product['shop_location'], shop_name=product['shop_name'])
+                obj.save()
+            except Exception as e:
+                print(e)
+        return render(request, 'crawl.html', {'result': result, 'display': True})
 
 def search(request):
     q = request.GET.get('q')

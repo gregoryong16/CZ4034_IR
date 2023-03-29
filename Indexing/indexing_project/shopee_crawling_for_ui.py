@@ -1,7 +1,14 @@
 import re
 import requests
 import json
-import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+import time
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin, urlparse
 
 class ShopeeCrawler:
     def __init__(self):
@@ -179,10 +186,61 @@ class ShopeeCrawler:
                   d.update(new_shop)
                   
                   
-      filtered_product['shop.shop_location'] = filtered_shop['shop_location']
-      filtered_product['shop.name'] = filtered_shop['name']  
+      filtered_product['shop_location'] = filtered_shop['shop_location']
+      filtered_product['shop_name'] = filtered_shop['name']  
 
       return filtered_product,filtered_shop,new_reviews      
+
+    def get_product_urls_from_category_page(self,url):
+      # Set options for running Chrome in headless mode
+      chrome_options = Options()
+      chrome_options.add_argument('--headless')
+
+      # set up the driver (make sure to download the appropriate driver for your browser)
+      driver = webdriver.Chrome("../../../chromedriver",options=chrome_options)
+
+      driver.get(url)
+
+      item_class = "shopee-search-item-result__item"
+
+      links = []
+      try:
+        time.sleep(1)
+        wait = WebDriverWait(driver, 10)
+        wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
+
+        # get the height of the entire webpage
+        page_height = driver.execute_script("return document.body.scrollHeight")
+
+        # set the scroll speed and duration
+        scroll_speed = 1000
+        scroll_duration = 0.2
+
+        # scroll to the bottom of the page slowly
+        for i in range(0, page_height, scroll_speed):
+            driver.execute_script("window.scrollTo(0, {});".format(i))
+            time.sleep(scroll_duration)
+
+        # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        page = driver.page_source
+        soup = BeautifulSoup(page, 'html.parser')
+        
+
+        items = soup.find_all("div", {"class": item_class})
+        for item in items:
+          link_element = item.find("a")
+          if (link_element):
+            link=f"https://shopee.sg{link_element['href']}"
+            # remove query parameters
+            link = urljoin(link, urlparse(link).path) 
+            links.append(link)
+
+      except Exception as e:
+        print(e)
+
+      # close the driver
+      driver.quit()
+      return links
 
     def get_shopee_data(self,url):
       output_reviews = []

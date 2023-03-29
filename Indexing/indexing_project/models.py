@@ -13,7 +13,8 @@ class Products(models.Model):
     shop_location = models.CharField(max_length=100,null=True)
     shop_name = models.CharField(max_length=100, null= True)
 
-    # class Meta:
+    class Meta:
+        unique_together = ["shop_id", "item_id"]
     #     app_label = 'indexing_project'
 
     def __str__(self):
