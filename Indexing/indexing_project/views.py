@@ -25,11 +25,14 @@ def crawl(request):
     if q is None:
         return render(request, 'crawl.html', {'result': None, 'display': False})
     else:
+        no = int(request.GET.get('no'))
         crawler = ShopeeCrawler()
         links = crawler.get_product_urls_from_category_page(q)
         result = []
         #for i in range(len(links)):
-        for i in range(10):
+        for i in range(no):
+            if i==len(links):
+                break
             link = links[i]
             product,shop,reviews = crawler.get_shopee_data(link)
             result.append(product)

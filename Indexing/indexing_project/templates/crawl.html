@@ -16,13 +16,21 @@
     <span>!</span>
   </div>
   <div class="box">
-    <form name="search" class="search" method="get">
+    <form name="crawl" class="crawl" method="get">
       <input
         type="text"
         class="input"
         name="q"
         placeholder="Enter Product Link"
       />
+      <select name="no" class="input">
+        <optgroup label="No. of Products to Crawl">
+          <option value=5>5</option>
+          <option value=10>10</option>
+          <option value=15>15</option>
+          <option value=20>20</option>
+        </optgroup>
+      </select>
     </form>
   </div>
   {% if display %}
