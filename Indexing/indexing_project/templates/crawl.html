@@ -1,0 +1,63 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'indexing_project/crawl.css' %}" />
+<link rel="stylesheet" href="{% static 'indexing_project/navbar.css' %}" />
+
+<body>
+  <div class="topnav">
+      <a href="{% url 'home' %}">Search</a>
+      <a class="active">Crawl</a>
+  </div>
+  <div class="title">
+    <span>C</span>
+    <span>R</span>
+    <span>A</span>
+    <span>W</span>
+    <span>L</span>
+    <span>!</span>
+  </div>
+  <div class="box">
+    <form name="crawl" class="crawl" method="get">
+      <input
+        type="text"
+        class="input"
+        name="q"
+        placeholder="Enter Product Link"
+      />
+      <select name="no" class="input">
+        <optgroup label="No. of Products to Crawl">
+          <option value=5>5</option>
+          <option value=10>10</option>
+          <option value=15>15</option>
+          <option value=20>20</option>
+        </optgroup>
+      </select>
+    </form>
+  </div>
+  {% if display %}
+    <h1 class="header">Crawl Results</h1>
+    <div class="result-box">
+      {% for res in result %}
+      <!-- for distinct results only -->
+      {% ifchanged %}
+      <div class="container" onclick="window.location.href='{{res.url}}'" style="background-image: url('{{res.image_url}}')">
+        <div class="overlay">
+          <div class="items head">
+            <p style="font-family: 'Courier New', Courier, monospace; font-size: medium;">{{res.shop_name}}</p>
+            <p>{{res.name}}</p>
+            <hr />
+          </div>
+          <div class="items price">
+            <p class="new">${{res.price_middle}} </p>
+          </div>
+          <div class="details">
+            <p>{{res.shop_location}}</p>
+            <p class="last_item">Rating: {{res.rating}}</p>
+          </div>
+        </div>
+      </div>
+      {% endifchanged %}
+      <!-- {{ res.name }} {{res.rating_star}}</br> -->
+      {% empty %} There are no results. {% endfor %}
+    </div>
+  {% endif %}
+</body>

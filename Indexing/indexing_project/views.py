@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from indexing_project.documents import ProductsDocument
 from django.shortcuts import render
 from .forms import MyForm
+from .shopee_crawling_for_ui import ShopeeCrawler
 from django.template import RequestContext
 from elasticsearch_dsl.query import MoreLikeThis
 from elasticsearch_dsl import Search
@@ -19,6 +20,30 @@ import time
 def home(request):
     return render(request, 'home.html')
 
+def crawl(request):
+    q = request.GET.get('q')
+    if q is None:
+        return render(request, 'crawl.html', {'result': None, 'display': False})
+    else:
+        no = int(request.GET.get('no'))
+        crawler = ShopeeCrawler()
+        links = crawler.get_product_urls_from_category_page(q)
+        result = []
+        #for i in range(len(links)):
+        for i in range(no):
+            if i==len(links):
+                break
+            link = links[i]
+            product,shop,reviews = crawler.get_shopee_data(link)
+            result.append(product)
+            try:
+                obj = Products.objects.create(shop_id = product['shopid'], item_id = product['itemid'],product_url=product['url'], product_name=product['name'], 
+                                  product_price=product['price_middle'], description=product['description'], rating=product['rating'], 
+                                  image_url=product['image_url'], shop_location=product['shop_location'], shop_name=product['shop_name'])
+                obj.save()
+            except Exception as e:
+                print(e)
+        return render(request, 'crawl.html', {'result': result, 'display': True})
 
 def search(request):
     q = request.GET.get('q')

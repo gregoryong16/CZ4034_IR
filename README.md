@@ -1,4 +1,4 @@
-# A Django webapp with elasticsearch backend(NoSQL)
+# A Django webapp with elasticsearch backend(NoSQL) and crawling capabilities
 
 ## Steps to get the app running on your local machine
 
@@ -8,7 +8,7 @@
 pip install -r requirements.txt
 ```
 
-### 2. Install the elasticsearch file in **Indexing** directory
+### 2. Install the elasticsearch(required for searching) file in **Indexing** directory
 
 <br/>
 
@@ -24,6 +24,17 @@ elasticsearch.bat
 ```
 
 now head to [localhost:9200](http://localhost:9200)
+
+<br/>
+
+### 4. Install the chromedriver file(required for crawling) file in **Indexing** directory (Make sure you have Chrome installed on your browser)
+
+<br/>
+
+If you do not have chrome installed, head to this link [link](https://www.google.com/intl/en_sg/chrome/) . <br/>
+Head to this [link](https://chromedriver.chromium.org/downloads) and download chromedriver according to your OS.
+
+<br/>
 
 ### 4. Open a new terminal and package model changes into individual migration files - analogous to commits
 
@@ -62,4 +73,16 @@ now head to [localhost:8000](http://localhost:8000)
 
 <br/>
 
-## You're Done with the set up, congrats! Now you're able to search for products on our application!
+## You're Done with the set up, congrats! Now you're able to search/crawl for products on our application!
+
+<br/>
+
+# For Searching
+
+## Input any **_product name_** you want to search for! Like keyboard, laptop, mouse etc.
+
+<br/>
+
+# For crawling
+
+## Input any **_product category url_** from **_Shopee_** you want to crawl, for example, something like "[https://shopee.sg/Cameras-Drones-cat.11013548](https://shopee.sg/Cameras-Drones-cat.11013548)"

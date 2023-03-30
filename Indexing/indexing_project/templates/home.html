@@ -1,7 +1,12 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'indexing_project/home.css' %}" />
+<link rel="stylesheet" href="{% static 'indexing_project/navbar.css' %}" />
 
 <body>
+  <div class="topnav">
+    <a class="active">Search</a>
+    <a href="{% url 'crawl' %}">Crawl</a>
+  </div>
   <div class="title">
     <span>S</span>
     <span>H</span>
@@ -15,7 +20,7 @@
         type="text"
         class="input"
         name="q"
-        placeholder="Enter Product name"
+        placeholder="Enter Product Name"
       />
     </form>
   </div>
