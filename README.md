@@ -1,4 +1,4 @@
-# A Django webapp with elasticsearch backend(NoSQL)
+# A Django webapp with elasticsearch backend(NoSQL) and crawling capabilities
 
 ## Steps to get the app running on your local machine
 
@@ -25,11 +25,14 @@ elasticsearch.bat
 
 now head to [localhost:9200](http://localhost:9200)
 
-### 4. Install the chromedriver file(required for crawling) file in **Indexing** directory
+<br/>
+
+### 4. Install the chromedriver file(required for crawling) file in **Indexing** directory (Make sure you have Chrome installed on your browser)
 
 <br/>
 
-Head to this [link](https://chromedriver.chromium.org/downloads) and download chromdriver according to your OS.
+If you do not have chrome installed, head to this link [link](https://www.google.com/intl/en_sg/chrome/) . <br/>
+Head to this [link](https://chromedriver.chromium.org/downloads) and download chromedriver according to your OS.
 
 <br/>
 
