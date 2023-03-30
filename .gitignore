@@ -2,3 +2,5 @@
 Indexing/db.sqlite3
 *.pyc
 Indexing/elasticsearch-7.14.0
+Indexing/chromedriver.exe
+Indexing/LICENSE.chromedriver

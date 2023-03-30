@@ -197,7 +197,7 @@ class ShopeeCrawler:
       chrome_options.add_argument('--headless')
 
       # set up the driver (make sure to download the appropriate driver for your browser)
-      driver = webdriver.Chrome("../../../chromedriver",options=chrome_options)
+      driver = webdriver.Chrome("../chromedriver",options=chrome_options)
 
       driver.get(url)
 
