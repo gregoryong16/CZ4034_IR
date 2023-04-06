@@ -12,7 +12,7 @@ django.setup()
 from indexing_project.models import Products
 
 ## Reading excel files
-df = read_excel("../../Crawling/data/v2/shopee_product_shop_combined.xlsx",sheet_name = "Sheet1")
+df = read_excel("../../Crawling/data/v2/shopee_product_shop_combined.xlsx",sheet_name = "Sheet1") ## change path accordingly to load data
 print(df.head()) # print the first 5 rows
 
 # Creating Objects using excel data
