@@ -79,10 +79,10 @@ now head to [localhost:8000](http://localhost:8000)
 
 # For Searching
 
-## Input any **_product name_** you want to search for! Like keyboard, laptop, mouse etc.
+### Input any **_product name_** you want to search for! Like keyboard, laptop, mouse etc.
 
 <br/>
 
 # For crawling
 
-## Input any **_product category url_** from **_Shopee_** you want to crawl, for example, something like "[https://shopee.sg/Cameras-Drones-cat.11013548](https://shopee.sg/Cameras-Drones-cat.11013548)"
+### Input any **_product category url_** from **_Shopee_** you want to crawl, for example, something like "[https://shopee.sg/Cameras-Drones-cat.11013548](https://shopee.sg/Cameras-Drones-cat.11013548)"
