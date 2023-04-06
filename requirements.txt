@@ -1,8 +1,10 @@
 asgiref==3.6.0
 async-generator==1.10
 attrs==22.2.0
+backports.zoneinfo==0.2.1
 beautifulsoup4==4.11.2
 certifi==2022.12.7
+cffi==1.15.1
 charset-normalizer==3.0.1
 defusedxml==0.7.1
 diff-match-patch==20200713
@@ -27,6 +29,7 @@ outcome==1.2.0
 pandas==1.5.3
 pipreqs==0.4.11
 plotly==5.13.0
+pycparser==2.21
 PySocks==1.7.1
 pysolr==3.9.0
 python-dateutil==2.8.2
