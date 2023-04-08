@@ -86,3 +86,19 @@ now head to [localhost:8000](http://localhost:8000)
 # For crawling
 
 ### Input any **_product category url_** from **_Shopee_** you want to crawl, for example, something like "[https://shopee.sg/Cameras-Drones-cat.11013548](https://shopee.sg/Cameras-Drones-cat.11013548)"
+
+<br/>
+
+# Dataset
+
+### More details about dataset used can be found at the [README.md](Crawling/README.md) under the [Crawling](Crawling) directory.
+
+<br/>
+
+# Classification Notebooks
+
+The notebooks can be found under the [Classification](Classification) Folder.
+
+### Naive Bayes notebook can be found at [Classification/Classification.ipynb](Classification/Classification.ipynb).
+
+### BERT Model notebook can be found at [Classification/bert_model_5epochs.ipynb](Classification/bert_model_5epochs.ipynb) (for 5 epochs) and at [Classification/bert_model_20epochs.ipynb](Classification/bert_model_20epochs.ipynb) (for 20 epochs).
